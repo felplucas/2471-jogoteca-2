@@ -1,13 +1,22 @@
-import mysql.connector
+from dotenv import load_dotenv
 from mysql.connector import errorcode
 from flask_bcrypt import generate_password_hash
+import mysql.connector
+import os
+
+load_dotenv()
+
+DB_USER = os.getenv('DB_USER')
+DB_PASS = os.getenv('DB_PASS')
+DB_HOST = os.getenv('DB_HOST')
+DB_NAME = os.getenv('DB_NAME')
 
 print("Conectando...")
 try:
       conn = mysql.connector.connect(
-            host='127.0.0.1',
-            user='root',
-            password='admin'
+            host=DB_HOST,
+            user=DB_USER,
+            password=DB_PASS
       )
 except mysql.connector.Error as err:
       if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
